@@ -84,6 +84,7 @@ def get_label_name(dataset, i):
 # param1: the original idx_dict. param2: idx of the class we want to limit. param3: val split proportion of non-shortened classes. 
 # param4: val split of the shortened class. param5: number of minority class samples to discard. param6: train/test split proportion. 
 # this is all in one because want to have more control over discarding-- making sure we have same number of test points for minority class
+# post: a dictionary with train, val, test, and discarded idx
 def get_shortened_idx(idx_dict, shortened_class, val_split_regular, val_split_minority, amount_to_discard, test_size=.2):
     new_dict = {}
     train_idx = []
@@ -142,12 +143,12 @@ def keystoint(x):
 
 # loads the idx_dict a dataset
 # param1: dataset. param2: classes of interest. param3: whether or not to load previous idx_dict 
-def load_idx_dict(dataset, n, retrace=False):
+def load_idx_dict(dataset, n, json='idx.json', retrace=False):
     if retrace:
         return get_idx(dataset, n)
     else:
-        print("loading idx from idx.json")
-        idx_file = open("idx.json", "r")
+        print("loading idx from " + json)
+        idx_file = open(json, "r")
         json_dict = idx_file.read()
         idx_dict = json.loads(json_dict, object_hook=keystoint)
         idx_file.close()
@@ -232,3 +233,11 @@ def add_synthetic(root, dataset, transform):
     return newDataset
 
 
+# loads a train, val, test parition of idxs
+def load_used_idxs(root):
+    print("loading idx from " + root)
+    idx_file = open(root, "r")
+    json_dict = idx_file.read()
+    idx_dict = json.loads(json_dict, object_hook=keystoint)
+    idx_file.close()
+    return idx_dict
