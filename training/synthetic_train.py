@@ -1,6 +1,6 @@
 import train_methods
 import argparse 
-import torchvision
+
 
 def main():
     parser = argparse.ArgumentParser(description ='script to train an efficientnet model on synthetic data')

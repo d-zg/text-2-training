@@ -11,7 +11,8 @@ def main():
     args = parser.parse_args()
     
     idx_dict = train_methods.load_used_idxs(args.idxdict)
-    train_val_idx = train_methods.get_shortened_idx(idx_dict, args.classId, .25, .25, args.discard)
+    # print(idx_dict)
+    train_val_idx = train_methods.get_shortened_idx(idx_dict, int(args.classId), .25, .25, int(args.discard))
 
     with open(args.outputfile, "w") as outfile:
         print('writing train/val/test partition dict to json file ' + args.outputfile)
