@@ -233,7 +233,7 @@ def add_synthetic(root, dataset, transform):
     return newDataset
 
 
-# loads a train, val, test parition of idxs
+# loads a idx dict
 def load_used_idxs(root):
     print("loading idx from " + root)
     idx_file = open(root, "r")
