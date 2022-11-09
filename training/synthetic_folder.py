@@ -1,4 +1,4 @@
-from torchvision import datasets.DatasetFolder
+from torchvision import DatasetFolder
 import os 
 
 def find_classes(directory: str, class_index: int) -> Tuple[List[str], Dict[str, int]]:
