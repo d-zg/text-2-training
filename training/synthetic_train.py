@@ -14,11 +14,11 @@ def main():
     
     dataset = train_methods.get_food101(root=args.datasetroot)
     synthetic = train_methods.load_synthetic(args.syntheticroot)
-    print(synthetic.class_to_idx.items())
-    print(dataset.class_to_idx.items())
-    # synthetic_idx = train_methods.get_idx(synthetic, 6)
-    # for k in synthetic_idx:
-    #     print(k)
+    # print(synthetic.class_to_idx.items())
+    # print(dataset.class_to_idx.items())
+    synthetic_idx = train_methods.get_idx(synthetic, 6)
+    for k in synthetic_idx:
+        print(k)
 
     split_idx = train_methods.load_used_idxs(root=args.idxdict) 
 
