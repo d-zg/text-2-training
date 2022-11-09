@@ -59,7 +59,7 @@ def load_synthetic(root):
         'beet_salad' : 5
     }
     # synthetic = torchvision.datasets.ImageFolder(root=root, transform=data_transforms, class_to_idx=class_to_idx_dict)
-    synthetic = synthetic_folder.SyntheticFolder(root=root, transform=data_transforms, class_to_idx=class_to_idx_dict)
+    synthetic = synthetic_folder.SyntheticFolder(root=root, transform=data_transforms)
     return synthetic
 
 # counts the class distribution for classes in a subset
