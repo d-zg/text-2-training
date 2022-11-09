@@ -15,7 +15,7 @@ def main():
     split_idx = train_methods.load_used_idxs(root=args.idxdict) 
 
     datasets = train_methods.train_val_split_idx(dataset, split_idx)
-    batch_size = 32
+    batch_size = 8
     dataloaders = train_methods.get_dataloaders(datasets=datasets, batch_size=batch_size)
     model = train_methods.fit_efficientnet_shape(int(args.n))
     criterion, optimizer = train_methods.make_criterion_optimizer(model)
