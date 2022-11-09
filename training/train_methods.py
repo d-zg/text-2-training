@@ -238,6 +238,6 @@ def load_used_idxs(root):
     print("loading idx from " + root)
     idx_file = open(root, "r")
     json_dict = idx_file.read()
-    idx_dict = json.loads(json_dict, object_hook=keystoint)
+    idx_dict = json.loads(json_dict)
     idx_file.close()
     return idx_dict
