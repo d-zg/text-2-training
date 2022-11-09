@@ -1,4 +1,4 @@
-from torchvision import DatasetFolder
+from torchvision import datasets
 import os 
 
 def find_classes(directory: str, class_index: int) -> Tuple[List[str], Dict[str, int]]:
@@ -12,7 +12,7 @@ def find_classes(directory: str, class_index: int) -> Tuple[List[str], Dict[str,
     class_to_idx = {cls_name: class_index for cls_name in classes}
     return classes, class_to_idx
 
-class SyntheticFolder(DatasetFolder):
+class SyntheticFolder(datasets.DatasetFolder):
     """A generic data loader where the images are arranged in this way by default: ::
         root/dog/xxx.png
         root/dog/xxy.png
