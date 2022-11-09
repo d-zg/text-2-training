@@ -262,7 +262,7 @@ def add_synthetic(root, dataset):
         ]),
     }
     synthetic = torchvision.datasets.ImageFolder(root=root, transform=data_transforms)
-    newDataset = torch.utils.data.ConcatDataset(dataset, synthetic)
+    newDataset = torch.utils.data.ConcatDataset(datasets=[dataset, synthetic])
     return newDataset
 
 
