@@ -154,6 +154,7 @@ def load_idx_dict(dataset, n, json='idx.json', retrace=False):
         idx_file.close()
         return idx_dict
 
+
 # given a dataset, splits dataset into a dictionary with train, val, and test subsets
 # param1: original dataset, param2: train/val split (proportion of train data as val), param3: train/test split size (proportion of all data as test)
 def train_val_full_dataset(dataset, val_split = .25, test_size = .2):
@@ -238,6 +239,6 @@ def load_used_idxs(root):
     print("loading idx from " + root)
     idx_file = open(root, "r")
     json_dict = idx_file.read()
-    idx_dict = json.loads(json_dict, object_hook=keystoint)
+    idx_dict = json.loads(json_dict)
     idx_file.close()
     return idx_dict

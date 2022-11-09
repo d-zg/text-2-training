@@ -21,7 +21,7 @@ def main():
     criterion, optimizer = train_methods.make_criterion_optimizer(model)
     
     best_model = train_methods.train_model(model, dataloaders, criterion, optimizer, num_epochs=100)
-    train_methods.eval_model(best_model, dataloaders, args.n)
+    train_methods.eval_model(best_model, dataloaders, int(args.n))
 
     print('saving best model to ' + args.checkpointfile)
     checkpoint = {'state_dict' : best_model[0].state_dict(), 'optimizer' : optimizer.state_dict()}
