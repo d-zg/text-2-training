@@ -7,6 +7,8 @@ from PIL import Image
 
 # from torchvision import VisionDataset
 
+IMG_EXTENSIONS = (".jpg", ".jpeg", ".png", ".ppm", ".bmp", ".pgm", ".tif", ".tiff", ".webp")
+
 def default_loader(path: str) -> Any:
     from torchvision import get_image_backend
 
