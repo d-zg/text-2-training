@@ -7,6 +7,34 @@ from PIL import Image
 
 # from torchvision import VisionDataset
 
+def default_loader(path: str) -> Any:
+    from torchvision import get_image_backend
+
+    if get_image_backend() == "accimage":
+        return accimage_loader(path)
+    else:
+        return pil_loader(path)
+
+def has_file_allowed_extension(filename: str, extensions: Union[str, Tuple[str, ...]]) -> bool:
+    """Checks if a file is an allowed extension.
+    Args:
+        filename (string): path to a file
+        extensions (tuple of strings): extensions to consider (lowercase)
+    Returns:
+        bool: True if the filename ends with one of given extensions
+    """
+    return filename.lower().endswith(extensions if isinstance(extensions, str) else tuple(extensions))
+
+
+def is_image_file(filename: str) -> bool:
+    """Checks if a file is an allowed image extension.
+    Args:
+        filename (string): path to a file
+    Returns:
+        bool: True if the filename ends with a known image extension
+    """
+    return has_file_allowed_extension(filename, IMG_EXTENSIONS)
+
 def find_classes(directory: str, class_index: int) -> Tuple[List[str], Dict[str, int]]:
     """Finds the class folders in a dataset.
     See :class:`DatasetFolder` for details.
