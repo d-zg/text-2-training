@@ -208,7 +208,7 @@ def fit_efficientnet_shape(n):
     model.to(device)
     return model
 
-def make_criterion_optimizer(model):
+def make_criterion_optimizer(model, learning_rate=1e-6):
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.AdamW(model.parameters(), lr=learning_rate)
     return criterion, optimizer
