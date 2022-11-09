@@ -56,7 +56,7 @@ def load_synthetic(root):
     class_to_idx_dict = {
         'beet_salad' : 5
     }
-    synthetic = torchvision.datasets.ImageFolder(root=root, transform=data_transforms, class_to_dx=class_to_idx_dict)
+    synthetic = torchvision.datasets.ImageFolder(root=root, transform=data_transforms, class_to_idx=class_to_idx_dict)
     return synthetic
 
 # counts the class distribution for classes in a subset
