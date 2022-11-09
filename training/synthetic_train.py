@@ -1,6 +1,6 @@
 import train_methods
 import argparse 
-
+import torch
 
 def main():
     parser = argparse.ArgumentParser(description ='script to train an efficientnet model on synthetic data')
@@ -14,15 +14,20 @@ def main():
     
     dataset = train_methods.get_food101(root=args.datasetroot)
     synthetic = train_methods.load_synthetic(args.syntheticroot)
+
+
+    # newDatasets = torch.utils.data.ConcatDataset(datasets=[dataset, synthetic])
+
     # print(synthetic.class_to_idx.items())
     # print(dataset.class_to_idx.items())
-    synthetic_idx = train_methods.get_idx(synthetic, 6)
-    for k in synthetic_idx:
-        print(k)
+    # synthetic_idx = train_methods.get_idx(synthetic, 6)
+    # for k in synthetic_idx:
+    #     print(k)
 
     split_idx = train_methods.load_used_idxs(root=args.idxdict) 
-
     datasets = train_methods.train_val_split_idx(dataset, split_idx)
+    datasets['train'] = torch.utils.data.ConcatDataset(datasets=[datasets['train'], synthetic])
+
     batch_size = 8
     dataloaders = train_methods.get_dataloaders(datasets=datasets, batch_size=batch_size)
     train_methods.get_dataloader_shapes_distribution(dataset, datasets, dataloaders)

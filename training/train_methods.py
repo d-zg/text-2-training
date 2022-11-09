@@ -91,6 +91,8 @@ def get_idx(dataset, n):
             print(i)
     return idx_dict
 
+# TODO: need to define a new get_idx for synthetic folder
+
 # unnecessary
 # def get_idx_dict(dataset, n, load=True):
 #     if not load: 
