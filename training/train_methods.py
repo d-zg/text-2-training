@@ -15,6 +15,8 @@ import time
 import os
 import copy
 import json
+import synthetic_folder
+
 cudnn.benchmark = True
 plt.ion()   # interactive mode
 
@@ -56,7 +58,8 @@ def load_synthetic(root):
     class_to_idx_dict = {
         'beet_salad' : 5
     }
-    synthetic = torchvision.datasets.ImageFolder(root=root, transform=data_transforms, class_to_idx=class_to_idx_dict)
+    # synthetic = torchvision.datasets.ImageFolder(root=root, transform=data_transforms, class_to_idx=class_to_idx_dict)
+    synthetic = synthetic_folder.SyntheticFolder(root=root, transform=data_transforms, class_to_idx=class_to_idx_dict)
     return synthetic
 
 # counts the class distribution for classes in a subset
