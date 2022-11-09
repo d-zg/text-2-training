@@ -168,7 +168,7 @@ def train_val_full_dataset(dataset, val_split = .25, test_size = .2):
 
 # prints a counter of the number of images in each class and displays the next image in the loader
 # param1: dataloders, param2: the full dataset, param3: the subset in question
-def get_dataloader_shapes_distribution(dataloaders, datasets, dataset):
+def get_dataloader_shapes_distribution(dataset, datasets, dataloaders):
     train_features, train_labels = next(iter(dataloaders['train']))
     print(f"Feature batch shape: {train_features.size()}")
     print(f"Labels batch shape: {train_labels.size()}")
