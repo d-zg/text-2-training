@@ -1,11 +1,11 @@
-# from torchvision import datasets
+from torchvision import datasets
 import os
 import os.path
 from typing import Any, Callable, cast, Dict, List, Optional, Tuple, Union
 
 from PIL import Image
 
-from torchvision import VisionDataset
+# from torchvision import VisionDataset
 
 def find_classes(directory: str, class_index: int) -> Tuple[List[str], Dict[str, int]]:
     """Finds the class folders in a dataset.
