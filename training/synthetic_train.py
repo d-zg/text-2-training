@@ -11,7 +11,9 @@ def main():
     parser.add_argument('checkpointfile')
     args = parser.parse_args()
 
+    
     dataset = train_methods.get_food101(root=args.datasetroot)
+    dataset = train_methods.add_synthetic(args.syntheticroot, dataset)
     split_idx = train_methods.load_used_idxs(root=args.idxdict) 
 
     datasets = train_methods.train_val_split_idx(dataset, split_idx)

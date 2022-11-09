@@ -38,6 +38,24 @@ def get_food101(root = "/home/dzhang/home/dzhang/efficientnet/data", download=Fa
     dataset = torchvision.datasets.Food101(root=root, download=download, transform=data_transforms['train'])
     return dataset 
 
+def load_synthetic(root):
+    data_transforms = {
+        'train': transforms.Compose([
+            transforms.RandomResizedCrop(384),
+            transforms.RandomHorizontalFlip(),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]),
+        'val': transforms.Compose([
+            transforms.Resize(438),
+            transforms.CenterCrop(384),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]),
+    }
+    synthetic = torchvision.datasets.ImageFolder(root=root, transform=data_transforms)
+    return synthetic
+
 # counts the class distribution for classes in a subset
 # param1: original dataset, param2: subset of interest
 def get_class_distribution(dataset, subset):
@@ -228,8 +246,22 @@ def load_checkpoint(model, optimizer, filename="/home/dzhang/home/dzhang/efficie
 
 # adds synthetic data in imagefolder format to an existing dataset
 # param1: root of the folder of images we want to add. param2: original dataset. transform: transform we want to put on new imagefolder.
-def add_synthetic(root, dataset, transform):
-    synthetic = torchvision.datasets.ImageFolder(root=root, transform=transform)
+def add_synthetic(root, dataset):
+    data_transforms = {
+        'train': transforms.Compose([
+            transforms.RandomResizedCrop(384),
+            transforms.RandomHorizontalFlip(),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]),
+        'val': transforms.Compose([
+            transforms.Resize(438),
+            transforms.CenterCrop(384),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]),
+    }
+    synthetic = torchvision.datasets.ImageFolder(root=root, transform=data_transforms)
     newDataset = torch.utils.data.ConcatDataset(dataset, synthetic)
     return newDataset
 
