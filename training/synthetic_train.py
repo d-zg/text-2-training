@@ -14,6 +14,7 @@ def main():
     
     dataset = train_methods.get_food101(root=args.datasetroot)
     synthetic = train_methods.load_synthetic(args.syntheticroot)
+    trimmedSynthetic = train_methods.random_trim(synthetic, 100)
 
 
     # newDatasets = torch.utils.data.ConcatDataset(datasets=[dataset, synthetic])
@@ -26,7 +27,7 @@ def main():
 
     split_idx = train_methods.load_used_idxs(root=args.idxdict) 
     datasets = train_methods.train_val_split_idx(dataset, split_idx)
-    datasets['train'] = torch.utils.data.ConcatDataset(datasets=[datasets['train'], synthetic])
+    datasets['train'] = torch.utils.data.ConcatDataset(datasets=[datasets['train'], trimmedSynthetic])
     # right now, no synthetic data in the val set
 
     batch_size = 8

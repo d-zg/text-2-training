@@ -9,7 +9,7 @@ import numpy as np
 import torchvision
 from torchvision import datasets, models, transforms
 from sklearn.model_selection import train_test_split
-from torch.utils.data import Subset, DataLoader
+from torch.utils.data import Subset, DataLoader, random_split
 import matplotlib.pyplot as plt
 import time
 import os
@@ -45,6 +45,24 @@ def load_synthetic(root):
     # synthetic = torchvision.datasets.ImageFolder(root=root, transform=data_transforms, class_to_idx=class_to_idx_dict)
     synthetic = synthetic_folder.SyntheticFolder(root=root, transform=data_transforms['train'])
     return synthetic
+
+# takes a dataset and randomly trims it into a dataset with n samples
+# param1: 
+def random_trim(dataset, n):
+    """
+        Returns a trimmed dataset randomly to the specified length.
+
+        Split behavior defined by torch.utils.data.random_split().
+        
+        Args:
+            dataset (Dataset): dataset to be split
+            n (int): number of samples in trimmed dataset  
+
+    """
+    assert n < len(dataset)
+    prop = n/len(dataset)
+    split = random_split(dataset=dataset, lengths=[prop, 1-prop])
+    return split[0]
 
 # counts the class distribution for classes in a subset
 # param1: original dataset, param2: subset of interest
@@ -85,7 +103,6 @@ def get_idx(dataset, n):
             print(i)
     return idx_dict
 
-# TODO: need to define a new get_idx for synthetic folder
 
 # unnecessary
 # def get_idx_dict(dataset, n, load=True):
@@ -202,8 +219,11 @@ def get_dataloader_shapes_distribution(dataset, datasets, dataloaders):
     plt.show()
     print(f"Label: {label}")
     print(train_features.shape)
+    print('train dist')
     get_class_distribution(dataset, datasets['train'])
+    print('val dist')
     get_class_distribution(dataset, datasets['val'])
+    print('test dist')
     get_class_distribution(dataset, datasets['test'])
 
 # just the dataloader
