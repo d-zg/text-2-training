@@ -55,7 +55,9 @@ def get_class_distribution(dataset, subset):
 # counts the class distribution for classes in a dataset
 # param1: original dataset
 def get_class_distribution(dataloader):
-    train_classes = [y for step, (x,y) in enumerate(dataloader)]
+    train_classes = []
+    for step, (x,y) in enumerate(dataloader):
+        train_classes += y
     print(Counter(train_classes))
 
 
