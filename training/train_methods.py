@@ -57,10 +57,8 @@ def get_class_distribution(dataset, subset):
 def get_class_distribution(dataloader):
     train_classes = []
     for step, (x,y) in enumerate(dataloader):
-        print(y.detach().tolist())
-        print(y)
-        train_classes += y
-    # print(Counter(train_classes))
+        train_classes += y.detach().tolist()
+    print(Counter(train_classes))
 
 
 
