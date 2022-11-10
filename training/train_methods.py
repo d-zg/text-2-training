@@ -52,6 +52,14 @@ def get_class_distribution(dataset, subset):
     train_classes = [dataset.__getitem__(i)[1] for i in subset.indices]
     print(Counter(train_classes)) # if doesn' work: Counter(i.item() for i in train_classes)
 
+# counts the class distribution for classes in a dataset
+# param1: original dataset
+def get_class_distribution(dataloader):
+    train_classes = [y for step, (x,y) in enumerate(dataloader)]
+    print(Counter(train_classes))
+
+
+
 # creates a subset with the first num_classes+1 classes
 # param1: original dataset, param2: the max class number we want to include
 def make_subset(dataset, num_classes):
@@ -195,6 +203,25 @@ def get_dataloader_shapes_distribution(dataset, datasets, dataloaders):
     get_class_distribution(dataset, datasets['train'])
     get_class_distribution(dataset, datasets['val'])
     get_class_distribution(dataset, datasets['test'])
+
+# just the dataloader
+def get_dataloader_shapes_distribution(dataloaders):
+    train_features, train_labels = next(iter(dataloaders['train']))
+    print(f"Feature batch shape: {train_features.size()}")
+    print(f"Labels batch shape: {train_labels.size()}")
+
+    # print(f"Feature batch: {train_features}")
+    # print(f"Labels batch: {train_labels}")
+    img = train_features[0].squeeze()
+    img = img[0, :, :]
+    label = train_labels[0]
+    plt.imshow(img, cmap="gray")
+    plt.show()
+    print(f"Label: {label}")
+    print(train_features.shape)
+    get_class_distribution(dataloaders['train'])
+    get_class_distribution(dataloaders['val'])
+    get_class_distribution(dataloaders['test'])
 
 # makes an identity layer
 # used to functionally delete layers when replacing
