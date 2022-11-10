@@ -20,46 +20,30 @@ import synthetic_folder
 cudnn.benchmark = True
 plt.ion()   # interactive mode
 
+data_transforms = {
+    'train': transforms.Compose([
+        transforms.RandomResizedCrop(384),
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ]),
+    'val': transforms.Compose([
+        transforms.Resize(438),
+        transforms.CenterCrop(384),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ]),
+}
+
 # downloads food101 or loads it if already downloaded, creates a dataset with randomcrop, horizontalflip, tensor, and normalize transformations
 # param1: True if want to redownload, false otherwise
 def get_food101(root = "/home/dzhang/home/dzhang/efficientnet/data", download=False):
-    data_transforms = {
-        'train': transforms.Compose([
-            transforms.RandomResizedCrop(384),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        ]),
-        'val': transforms.Compose([
-            transforms.Resize(438),
-            transforms.CenterCrop(384),
-            transforms.ToTensor(),
-            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        ]),
-    }
     dataset = torchvision.datasets.Food101(root=root, download=download, transform=data_transforms['train'])
     return dataset 
 
 def load_synthetic(root):
-    data_transforms = {
-        'train': transforms.Compose([
-            transforms.RandomResizedCrop(384),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        ]),
-        'val': transforms.Compose([
-            transforms.Resize(438),
-            transforms.CenterCrop(384),
-            transforms.ToTensor(),
-            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        ]),
-    }
-    class_to_idx_dict = {
-        'beet_salad' : 5
-    }
     # synthetic = torchvision.datasets.ImageFolder(root=root, transform=data_transforms, class_to_idx=class_to_idx_dict)
-    synthetic = synthetic_folder.SyntheticFolder(root=root, transform=data_transforms)
+    synthetic = synthetic_folder.SyntheticFolder(root=root, transform=data_transforms['train'])
     return synthetic
 
 # counts the class distribution for classes in a subset

@@ -27,7 +27,8 @@ def is_image_file(filename: str) -> bool:
     return has_file_allowed_extension(filename, IMG_EXTENSIONS)
 
 
-def find_classes(directory: str) -> Tuple[List[str], Dict[str, int]]:
+# finds the one class folder and gives it the index we want
+def find_classes(directory: str, class_index=5) -> Tuple[List[str], Dict[str, int]]:
     """Finds the class folders in a dataset.
     See :class:`DatasetFolder` for details.
     """
@@ -35,9 +36,8 @@ def find_classes(directory: str) -> Tuple[List[str], Dict[str, int]]:
     if not classes:
         raise FileNotFoundError(f"Couldn't find any class folder in {directory}.")
 
-    class_to_idx = {cls_name: i for i, cls_name in enumerate(classes)}
+    class_to_idx = {cls_name: class_index for cls_name in classes}
     return classes, class_to_idx
-
 
 def make_dataset(
     directory: str,

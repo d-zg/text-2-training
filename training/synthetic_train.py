@@ -27,6 +27,7 @@ def main():
     split_idx = train_methods.load_used_idxs(root=args.idxdict) 
     datasets = train_methods.train_val_split_idx(dataset, split_idx)
     datasets['train'] = torch.utils.data.ConcatDataset(datasets=[datasets['train'], synthetic])
+    # right now, no synthetic data in the val set
 
     batch_size = 8
     dataloaders = train_methods.get_dataloaders(datasets=datasets, batch_size=batch_size)
