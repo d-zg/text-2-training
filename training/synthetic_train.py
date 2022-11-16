@@ -15,7 +15,7 @@ def main():
     
     dataset = train_methods.get_food101(root=args.datasetroot)
     synthetic = train_methods.load_synthetic(args.syntheticroot)
-    trimmedSynthetic = train_methods.random_trim(synthetic, args.syntheticsamples)
+    trimmedSynthetic = train_methods.random_trim(synthetic, int(args.syntheticsamples))
 
 
     # newDatasets = torch.utils.data.ConcatDataset(datasets=[dataset, synthetic])
