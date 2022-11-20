@@ -39,7 +39,7 @@ def main():
     model = train_methods.fit_efficientnet_shape(int(args.n))
     criterion, optimizer = train_methods.make_criterion_optimizer(model)
     
-    best_model = train_methods.train_model(model, dataloaders, criterion, optimizer, num_epochs=int(args.epochs))
+    best_model, val_history = train_methods.train_model(model, dataloaders, criterion, optimizer, num_epochs=int(args.epochs))
     train_methods.eval_model(best_model, dataloaders, int(args.n))
 
     print('saving best model to ' + args.checkpointfile)
