@@ -39,6 +39,7 @@ def save_train_history(filename, data):
     """
         Saves an array of train/val history to a csv file of the given name
     """
+    data = data.cpu()
     nparray = np.asarray(data)
     path = filename + '.csv'
     np.savetext(path, nparray, delimiter=',')
