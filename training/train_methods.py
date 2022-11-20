@@ -35,6 +35,14 @@ data_transforms = {
     ]),
 }
 
+def save_train_history(filename, data):
+    """
+        Saves an array of train/val history to a csv file of the given name
+    """
+    nparray = np.asarray(data)
+    path = filename + '.csv'
+    np.savetext(path, nparray, delimiter=',')
+
 # downloads food101 or loads it if already downloaded, creates a dataset with randomcrop, horizontalflip, tensor, and normalize transformations
 # param1: True if want to redownload, false otherwise
 def get_food101(root = "/home/dzhang/home/dzhang/efficientnet/data", download=False):

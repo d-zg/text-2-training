@@ -44,7 +44,9 @@ def main():
 
     print('saving best model to ' + args.checkpointfile)
     checkpoint = {'state_dict' : best_model.state_dict(), 'optimizer' : optimizer.state_dict()}
-    train_methods.save_checkpoint(state=checkpoint)
+    path = args.checkpointfile + ".pth.tar"
+    train_methods.save_checkpoint(state=checkpoint, filename=path)
+    train_methods.save_train_history(args.checkpointfile, val_history)
 
 if __name__ == "__main__":
     main()
