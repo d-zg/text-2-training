@@ -8,6 +8,7 @@ def main():
     parser.add_argument('datasetroot')
     parser.add_argument('idxdict')
     parser.add_argument('n')
+    parser.add_argument('epochs')
     parser.add_argument('checkpointfile')
     args = parser.parse_args()
 
@@ -37,7 +38,7 @@ def main():
     model = train_methods.fit_efficientnet_shape(int(args.n))
     criterion, optimizer = train_methods.make_criterion_optimizer(model)
     
-    best_model = train_methods.train_model(model, dataloaders, criterion, optimizer, num_epochs=100)
+    best_model = train_methods.train_model(model, dataloaders, criterion, optimizer, num_epochs=int(args.epochs))
     train_methods.eval_model(best_model, dataloaders, int(args.n))
 
     print('saving best model to ' + args.checkpointfile)
