@@ -8,6 +8,7 @@ def main():
     parser.add_argument('datasetroot')
     parser.add_argument('idxdict')
     parser.add_argument('n')
+    parser.add_argument('syntheticsamples')
     parser.add_argument('epochs')
     parser.add_argument('checkpointfile')
     args = parser.parse_args()
@@ -15,7 +16,7 @@ def main():
     
     dataset = train_methods.get_food101(root=args.datasetroot)
     synthetic = train_methods.load_synthetic(args.syntheticroot)
-    trimmedSynthetic = train_methods.random_trim(synthetic, 100)
+    trimmedSynthetic = train_methods.random_trim(synthetic, int(args.syntheticsamples))
 
 
     # newDatasets = torch.utils.data.ConcatDataset(datasets=[dataset, synthetic])
