@@ -43,7 +43,7 @@ def main():
     train_methods.eval_model(best_model, dataloaders, int(args.n))
 
     print('saving best model to ' + args.checkpointfile)
-    checkpoint = {'state_dict' : best_model[0].state_dict(), 'optimizer' : optimizer.state_dict()}
+    checkpoint = {'state_dict' : best_model.state_dict(), 'optimizer' : optimizer.state_dict()}
     train_methods.save_checkpoint(state=checkpoint)
 
 if __name__ == "__main__":
