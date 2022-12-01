@@ -13,6 +13,7 @@ from torch.utils.data import Subset, DataLoader, random_split
 import matplotlib.pyplot as plt
 import time
 import os
+import pandas as pd
 import copy
 import json
 import synthetic_folder
@@ -35,14 +36,21 @@ data_transforms = {
     ]),
 }
 
+def save_test_results(filename, data):
+    """
+        Saves a confusion matrix to a csv file
+    """
+    data = data.detach().cpu().clone().numpy()
+    path = filename + 'eval.csv'
+    pd.DataFrame(data).to_csv(path)
+
 def save_train_history(filename, data):
     """
         Saves an array of train/val history to a csv file of the given name
     """
-    data = data.cpu()
-    nparray = np.asarray(data)
+    data = data.detach().cpu().clone().numpy()
     path = filename + '.csv'
-    np.savetext(path, nparray, delimiter=',')
+    np.savetext(path, data, delimiter=',')
 
 # downloads food101 or loads it if already downloaded, creates a dataset with randomcrop, horizontalflip, tensor, and normalize transformations
 # param1: True if want to redownload, false otherwise
@@ -418,6 +426,7 @@ def eval_model(model, dataloaders, nb_classes):
     print(confusion_matrix)
     print('Accuracy by class: ')
     print(confusion_matrix.diag()/confusion_matrix.sum(1))
+    return confusion_matrix
     
 
     

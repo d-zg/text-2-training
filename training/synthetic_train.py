@@ -40,13 +40,14 @@ def main():
     criterion, optimizer = train_methods.make_criterion_optimizer(model)
     
     best_model, val_history = train_methods.train_model(model, dataloaders, criterion, optimizer, num_epochs=int(args.epochs))
-    train_methods.eval_model(best_model, dataloaders, int(args.n))
+    confusion = train_methods.eval_model(best_model, dataloaders, int(args.n))
 
     print('saving best model to ' + args.checkpointfile)
     checkpoint = {'state_dict' : best_model.state_dict(), 'optimizer' : optimizer.state_dict()}
     path = args.checkpointfile + ".pth.tar"
     train_methods.save_checkpoint(state=checkpoint, filename=path)
     train_methods.save_train_history(args.checkpointfile, val_history)
+    train_methods.save_test_results(args.checkpointfile, confusion)
 
 if __name__ == "__main__":
     main()
