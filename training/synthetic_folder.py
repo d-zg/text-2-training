@@ -28,7 +28,7 @@ def is_image_file(filename: str) -> bool:
 
 
 # finds the one class folder and gives it the index we want
-def find_classes(directory: str, class_index=5) -> Tuple[List[str], Dict[str, int]]:
+def find_classes(directory: str, class_index) -> Tuple[List[str], Dict[str, int]]:
     """Finds the class folders in a dataset.
     See :class:`DatasetFolder` for details.
     """
