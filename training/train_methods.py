@@ -140,7 +140,6 @@ def get_label_name(dataset, i):
 # this is all in one because want to have more control over discarding-- making sure we have same number of test points for minority class
 # post: a dictionary with train, val, test, and discarded idx
 def get_shortened_idx(idx_dict, shortened_class, val_split_regular, val_split_minority, amount_to_discard, test_size=.2):
-    new_dict = {}
     train_idx = []
     val_idx = []
     test_idx = []
