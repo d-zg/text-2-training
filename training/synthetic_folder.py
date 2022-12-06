@@ -153,6 +153,7 @@ class SyntheticFolder(datasets.DatasetFolder):
     def __init__(
         self,
         root: str,
+        class_index: int, 
         transform: Optional[Callable] = None,
         target_transform: Optional[Callable] = None,
         loader: Callable[[str], Any] = default_loader,
@@ -190,4 +191,4 @@ class SyntheticFolder(datasets.DatasetFolder):
         Returns:
             (Tuple[List[str], Dict[str, int]]): List of all classes and dictionary mapping each class to an index.
         """
-        return find_classes(directory)
+        return find_classes(directory, self.class_index)

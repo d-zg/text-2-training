@@ -58,9 +58,9 @@ def get_food101(root = "/home/dzhang/home/dzhang/efficientnet/data", download=Fa
     dataset = torchvision.datasets.Food101(root=root, download=download, transform=data_transforms['train'])
     return dataset 
 
-def load_synthetic(root):
+def load_synthetic(root, class_index):
     # synthetic = torchvision.datasets.ImageFolder(root=root, transform=data_transforms, class_to_idx=class_to_idx_dict)
-    synthetic = synthetic_folder.SyntheticFolder(root=root, transform=data_transforms['train'])
+    synthetic = synthetic_folder.SyntheticFolder(root=root, transform=data_transforms['train'], class_index=class_index)
     return synthetic
 
 # takes a dataset and randomly trims it into a dataset with n samples
