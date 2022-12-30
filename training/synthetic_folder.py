@@ -159,6 +159,7 @@ class SyntheticFolder(datasets.DatasetFolder):
         loader: Callable[[str], Any] = default_loader,
         is_valid_file: Optional[Callable[[str], bool]] = None,
     ):
+        self.class_index = class_index
         super().__init__(
             root,
             loader,
@@ -168,7 +169,6 @@ class SyntheticFolder(datasets.DatasetFolder):
             is_valid_file=is_valid_file,
         )
         self.imgs = self.samples
-        self.class_index = class_index
 
     def find_classes(self, directory: str) -> Tuple[List[str], Dict[str, int]]:
         """Find the class folders in a dataset structured as follows::
